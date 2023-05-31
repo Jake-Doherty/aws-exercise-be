@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 7890;
 app.listen(PORT, () => {
   console.info(`🚀  Server started on ${API_URL}:${PORT}`);
 });
+app.listen(4242, () => console.log('Running on port 4242'));
 
 process.on('exit', () => {
   console.info('👋  Goodbye!');
