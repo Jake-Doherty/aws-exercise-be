@@ -8,6 +8,10 @@ app.listen(PORT, () => {
   console.info(`🚀  Server started on ${API_URL}:${PORT}`);
 });
 
+app.listen(4242, () =>
+  console.info(`🦓 Stripe port running at ${API_URL}:4242`)
+);
+
 process.on('exit', () => {
   console.info('👋  Goodbye!');
   pool.end();
