@@ -1,10 +1,12 @@
 -- Use this file to define your SQL tables
 -- The SQL in this file will be executed when you run `npm run setup-db`
-DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS cognito_users CASCADE;
+DROP TABLE IF EXISTS stripe_customers CASCADE;
 
 CREATE TABLE cognito_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  sub VARCHAR(255) NOT NULL
+  sub VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE stripe_customers (
