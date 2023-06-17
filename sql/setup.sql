@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS stripe_customers CASCADE;
 -- DROP TABLE IF EXISTS stripe_cognito CASCADE;
 DROP TABLE IF EXISTS subscriptions CASCADE;
 DROP TABLE IF EXISTS invoices CASCADE;
+DROP TABLE IF EXISTS failed_transactions CASCADE;
 
 -- CREATE TABLE cognito_users (
 --   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -49,8 +50,8 @@ subscription_id VARCHAR(255)  PRIMARY KEY NOT NULL,
 is_active BOOLEAN NOT NULL,
 FOREIGN KEY (customer_id) REFERENCES stripe_customers(customer_id)
 );
- 
- CREATE TABLE invoices (
+
+CREATE TABLE invoices (
   customer_id VARCHAR(255)  NOT NULL,
   invoice_id VARCHAR(255)   PRIMARY KEY,
   start_date BIGINT ,
@@ -60,5 +61,13 @@ FOREIGN KEY (customer_id) REFERENCES stripe_customers(customer_id)
   amount_due DECIMAL(9,2) ,
   amount_paid DECIMAL(9,2) ,
   FOREIGN KEY (customer_id) REFERENCES stripe_customers(customer_id)
- )
+);
 
+CREATE TABLE failed_transactions (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  customer_id VARCHAR(255) NOT NULL,
+  failure_code VARCHAR(255) NOT NULL,
+  transaction_amt BIGINT NOT NULL,
+  timestamp BIGINT NOT NULL,
+  invoice_id VARCHAR(255) NOT NULL
+)
